@@ -28,6 +28,11 @@ app.get("/", (req, res) => {
   res.send("WELCOME TO RABBIT API!");
 });
 
+app.use(cors({
+  origin: "*",
+  credentials: true,
+}));
+
 // API Routes
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
