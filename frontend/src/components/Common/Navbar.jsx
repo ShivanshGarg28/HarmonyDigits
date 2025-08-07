@@ -34,7 +34,7 @@ const Navbar = () => {
         {/* Left - Logo */}
         <div>
           <Link to="/" className="text-2xl font-medium">
-            Rabbit
+            Harmony Digits
           </Link>
         </div>
         {/* Center - Navigation Links */}
