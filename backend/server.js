@@ -29,8 +29,9 @@ app.get("/", (req, res) => {
 });
 
 app.use(cors({
-  origin: "*",
+  origin: "https://harmony-digits-18a4-gzh79oelv-shivansh-gargs-projects-aaeb0100.vercel.app",
   credentials: true,
+  optionsSuccessStatus:200
 }));
 
 // API Routes
