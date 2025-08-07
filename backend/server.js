@@ -28,11 +28,6 @@ app.get("/", (req, res) => {
   res.send("WELCOME TO RABBIT API!");
 });
 
-app.use(cors({
-  origin: "https://harmony-digits-18a4-gzh79oelv-shivansh-gargs-projects-aaeb0100.vercel.app",
-  credentials: true,
-  optionsSuccessStatus:200
-}));
 
 // API Routes
 app.use("/api/users", userRoutes);
