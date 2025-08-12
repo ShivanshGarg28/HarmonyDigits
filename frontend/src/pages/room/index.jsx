@@ -31,8 +31,8 @@ const RoomPage = () => {
 
         // 2️⃣ Generate kitToken with dynamic name
         
-        const appID = 494964623;
-        const serverSecret = "f8467a4c3abe3fec3decc5dd72401566";
+        const appID = 556479662;
+        const serverSecret = "dc2a4ca608dbf42d86885b31b7294a5f";
         const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
           appID,
           serverSecret,

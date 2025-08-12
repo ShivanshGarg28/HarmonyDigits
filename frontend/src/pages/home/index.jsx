@@ -1,5 +1,5 @@
 // pages/Home/index.jsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {

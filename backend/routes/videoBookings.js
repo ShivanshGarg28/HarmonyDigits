@@ -5,13 +5,13 @@ const { v4: uuidv4 } = require('uuid');
 
 const Booking = require('../models/Booking');
 const User = require('../models/User');
-const Astrologer = require('../models/astrologer');
-const userAuth = require('../middleware/auth');
+const astro = require('../models/astrologer');
+const { protect } = require('../middleware/authMiddleware');
 
 const GRACE_MIN = parseInt(process.env.ROOM_GRACE_MINUTES || '3', 10);
 
 //create booking
-router.post('/booking', async (req, res) => {
+router.post('/booking', protect, async (req, res) => {
   try {
     const { astrologerId, startTimeISO, durationMinutes } = req.body;
     if (!astrologerId || !startTimeISO || !durationMinutes) {
@@ -30,8 +30,8 @@ router.post('/booking', async (req, res) => {
     }
 
     // check astrologer exists
-    const astro = await Astrologer.findById(astrologerId);
-    if (!astro) return res.status(404).json({ error: 'Astrologer not found' });
+    const astroUser = await astro.findById(astrologerId);
+    if (!astroUser) return res.status(404).json({ error: 'Astrologer not found' });
 
     // compute endTime
     const end = new Date(start.getTime() + duration * 60 * 1000);
@@ -53,7 +53,7 @@ router.post('/booking', async (req, res) => {
 
     const booking = new Booking({
       user: req.user._id,
-      astrologer: astro._id,
+      astrologer: astroUser._id,
       startTime: start,
       endTime: end,
       durationMinutes: duration,
@@ -65,7 +65,7 @@ router.post('/booking', async (req, res) => {
     res.status(201).json({
       message: 'Booking created',
       bookingId: booking._id,
-    //roomId: booking.roomId, // optional
+      //roomId: booking.roomId, // optional
       startTime: booking.startTime,
       endTime: booking.endTime
     });
@@ -76,11 +76,11 @@ router.post('/booking', async (req, res) => {
 });
 
 //to fetch bookings
-router.get('/booking/:id', async (req, res) => {
+router.get('/booking/:id', protect, async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id)
       .populate('user', 'name email')
-      .populate('astrologer', 'name email');
+      .populate('astrologer', 'firstName emailId');
 
     if (!booking) return res.status(404).json({ error: 'Booking not found' });
 
@@ -96,16 +96,22 @@ router.get('/booking/:id', async (req, res) => {
 });
 
 // to get roomId
-router.get('/:id/room', userAuth, async (req, res) => {
+router.get('/:id/room', protect, async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id)
       .populate('user', 'name')
-      .populate('astrologer', 'name');
+      .populate('astrologer', 'firstName lastName')
 
     if (!booking) return res.status(404).json({ error: 'Booking not found' });
 
-    const isUser = booking.user._id.equals(req.user._id);
-    const isAstro = booking.astrologer._id.equals(req.user._id);
+    const isUser = booking.user._id.toString() === req.user._id.toString();
+    if (!booking.astrologer) return res.status(500).json({ error: 'Astrologer data not found' });
+
+    const isAstro = booking.astrologer._id.toString() === req.user._id.toString();
+    console.log('req.user._id:', req.user._id);
+    console.log('booking.user._id:', booking.user._id);
+    console.log('booking.astrologer._id:', booking.astrologer._id);
+
     if (!isUser && !isAstro) return res.status(403).json({ error: 'Not authorized' });
 
     const now = new Date();
@@ -115,7 +121,10 @@ router.get('/:id/room', userAuth, async (req, res) => {
     if (now < allowedStart) return res.status(403).json({ error: 'Meeting not started yet' });
     if (now > allowedEnd) return res.status(403).json({ error: 'Meeting window has ended' });
 
-    const userName = isUser ? booking.user.name : booking.astrologer.name;
+    const userName = isUser
+      ? booking.user.name
+      : `${booking.astrologer.firstName} ${booking.astrologer.lastName || ''}`;
+
 
     res.json({ roomId: booking.roomId, userName });
   } catch (err) {

@@ -9,7 +9,7 @@ const BookingSchema = new mongoose.Schema({
     },
     astrologer: { 
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Astrologer', 
+        ref: 'astro', 
         required: true 
     },
     startTime: { 

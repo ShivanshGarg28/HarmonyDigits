@@ -1,8 +1,10 @@
 const express = require("express");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const bcrypt = require('bcrypt');
 const { protect } = require("../middleware/authMiddleware");
 const router = express.Router();
+
 
 // @route POST /api/users/register
 // @desc Register a new user
@@ -58,11 +60,11 @@ router.post("/login", async (req, res) => {
     // Find the user by email
     let user = await User.findOne({ email });
 
-    if (!user) return res.status(400).json({ message: "Invalid Credentials" });
-    const isMatch = await user.matchPassword(password);
+    const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch)
       return res.status(400).json({ message: "Invalid Credentials" });
+
 
     // Create JWT Payload
     const payload = { user: { id: user._id, role: user.role } };
