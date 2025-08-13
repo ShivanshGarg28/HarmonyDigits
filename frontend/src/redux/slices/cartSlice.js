@@ -35,7 +35,7 @@ export const fetchCart = createAsyncThunk(
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
   async (
-    { productId, quantity, size, color, guestId, userId },
+    { productId, quantity, size, guestId, userId },
     { rejectWithValue }
   ) => {
     try {
@@ -45,7 +45,6 @@ export const addToCart = createAsyncThunk(
           productId,
           quantity,
           size,
-          color,
           guestId,
           userId,
         }
@@ -61,7 +60,7 @@ export const addToCart = createAsyncThunk(
 export const updateCartItemQuantity = createAsyncThunk(
   "cart/updateCartItemQuantity",
   async (
-    { productId, quantity, guestId, userId, size, color },
+    { productId, quantity, guestId, userId, size},
     { rejectWithValue }
   ) => {
     try {
@@ -73,7 +72,6 @@ export const updateCartItemQuantity = createAsyncThunk(
           guestId,
           userId,
           size,
-          color,
         }
       );
       return response.data;
@@ -86,12 +84,12 @@ export const updateCartItemQuantity = createAsyncThunk(
 // Remove an item from the cart
 export const removeFromCart = createAsyncThunk(
   "cart/removeFromCart",
-  async ({ productId, guestId, userId, size, color }, { rejectWithValue }) => {
+  async ({ productId, guestId, userId, size }, { rejectWithValue }) => {
     try {
       const response = await axios({
         method: "DELETE",
         url: `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
-        data: { productId, guestId, userId, size, color },
+        data: { productId, guestId, userId, size },
       });
       return response.data;
     } catch (error) {

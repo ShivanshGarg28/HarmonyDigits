@@ -9,7 +9,7 @@ const CartContents = ({ cart, userId, guestId }) => {
   const dispatch = useDispatch();
 
   // Handle adding or substracting to cart
-  const handleAddToCart = (productId, delta, quantity, size, color) => {
+  const handleAddToCart = (productId, delta, quantity, size) => {
     const newQuantity = quantity + delta;
     if (newQuantity >= 1) {
       dispatch(
@@ -18,15 +18,14 @@ const CartContents = ({ cart, userId, guestId }) => {
           quantity: newQuantity,
           guestId,
           userId,
-          size,
-          color,
+          size
         })
       );
     }
   };
 
-  const handleRemoveFromCart = (productId, size, color) => {
-    dispatch(removeFromCart({ productId, guestId, userId, size, color }));
+  const handleRemoveFromCart = (productId, size) => {
+    dispatch(removeFromCart({ productId, guestId, userId, size }));
   };
 
   return (
@@ -45,7 +44,7 @@ const CartContents = ({ cart, userId, guestId }) => {
             <div>
               <h3>{product.name}</h3>
               <p className="text-sm text-gray-500">
-                size: {product.size} | color: {product.color}
+                size: {product.size} 
               </p>
               <div className="flex items-center mt-2">
                 <button
@@ -55,7 +54,6 @@ const CartContents = ({ cart, userId, guestId }) => {
                       -1,
                       product.quantity,
                       product.size,
-                      product.color
                     )
                   }
                   className="border rounded px-2 py-1 text-xl font-medium"
@@ -70,7 +68,6 @@ const CartContents = ({ cart, userId, guestId }) => {
                       1,
                       product.quantity,
                       product.size,
-                      product.color
                     )
                   }
                   className="border rounded px-2 py-1 text-xl font-medium"
@@ -87,7 +84,6 @@ const CartContents = ({ cart, userId, guestId }) => {
                 handleRemoveFromCart(
                   product.productId,
                   product.size,
-                  product.color
                 )
               }
             >
