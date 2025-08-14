@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import featured from "../../assets/featured.webp";
+import featured from "../../assets/feature.jpg";
 
 const FeaturedCollection = () => {
   return (
@@ -13,10 +13,13 @@ const FeaturedCollection = () => {
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
             Geetu Parmar
           </h2>
-          <p className="text-lg text-gray-600 mb-6">
-            Discover high-quality, comfortable clothing that effortlessly blends
-            fashion and function. Designed to make you look and feel great every
-            day.
+          <p className="text-lg text-gray-600 mb-2">
+            Harmony Digits by Geetu Parmar- where Numbers, intuition & ancient wishdom align.<br></br>Astrologist | Numerlogy | Ramal vidya expert
+            
+          </p>
+          
+           <p className="text-lg text-gray-600 mb-6">
+            SPEC: IN KAALSARP DOSH AND MANGLIK POOJA
           </p>
           <Link
             to="/collections/all"
