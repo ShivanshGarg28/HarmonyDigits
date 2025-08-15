@@ -57,13 +57,19 @@ const Navbar = () => {
             to="/collections/all?category=yantra"
             className="text-gray-700 hover:text-black text-sm font-medium uppercase"
           >
-            yantra
+            Yantra
           </Link>
           <Link
             to="/collections/all?category=bracelet"
             className="text-gray-700 hover:text-black text-sm font-medium uppercase"
           >
-            bracelet
+            Bracelet
+          </Link>
+          <Link
+            to="/astrologer"
+            className="text-gray-700 hover:text-black text-sm font-medium uppercase"
+          >
+            Booking
           </Link>
         </div>
         {/* Right - Icons */}
@@ -146,6 +152,13 @@ const Navbar = () => {
               className="block text-gray-600 hover:text-black"
             >
               bracelet
+            </Link>
+            <Link
+              to="/astrologer"
+              onClick={toggleNavDrawer}
+              className="block text-gray-600 hover:text-black"
+            >
+              Booking
             </Link>
           </nav>
         </div>

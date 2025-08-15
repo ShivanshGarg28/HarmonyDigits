@@ -22,7 +22,7 @@ const FeaturedCollection = () => {
             SPEC: IN KAALSARP DOSH AND MANGLIK POOJA
           </p>
           <Link
-            to="/collections/all"
+            to="/astrologer"
             className="bg-black text-white px-6 py-3 rounded-lg text-lg hover:bg-gray-800"
           >
             Book an Appointment

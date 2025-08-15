@@ -14,6 +14,7 @@ const productAdminRoutes = require("./routes/productAdminRoutes");
 const adminOrderRoutes = require("./routes/adminOrderRoutes");
 const videoBookingRoutes = require("./routes/videoBookings");
 const astroRoute = require("./routes/astrologer")
+const Razorpay = require("razorpay")
 
 const app = express();
 app.use(express.json());
