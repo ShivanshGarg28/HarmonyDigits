@@ -122,7 +122,7 @@ const BookingPage = () => {
             Offline Booking
           </Link>
           <Link
-            to="/videocall-booking"
+            to="/videocalling"
             className="px-8 py-4 w-52 rounded-full bg-sky-600 text-white font-semibold text-lg shadow-lg transform transition-all hover:scale-105 hover:bg-sky-700 text-center"
           >
             Book Video Call

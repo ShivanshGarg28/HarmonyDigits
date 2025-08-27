@@ -1,10 +1,9 @@
 const express = require("express");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const { protect } = require("../middleware/authMiddleware");
 const router = express.Router();
-
 
 // @route POST /api/users/register
 // @desc Register a new user
@@ -13,16 +12,21 @@ router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
-    // Registration logic
+    // Check if user already exists
     let user = await User.findOne({ email });
 
     if (user) return res.status(400).json({ message: "User already exists" });
 
-    user = new User({ name, email, password });
+    // Hash password before saving
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Create new user with hashed password
+    user = new User({ name, email, password: hashedPassword });
     await user.save();
 
     // Create JWT Payload
-    const payload = { user: { id: user._id, role: user.role } };
+    const payload = { id: user._id, role: user.role };
 
     // Sign and return the token along with user data
     jwt.sign(
@@ -32,7 +36,6 @@ router.post("/register", async (req, res) => {
       (err, token) => {
         if (err) throw err;
 
-        // Send the user and token in response
         res.status(201).json({
           user: {
             _id: user._id,
@@ -45,7 +48,7 @@ router.post("/register", async (req, res) => {
       }
     );
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).send("Server Error");
   }
 });
@@ -60,14 +63,19 @@ router.post("/login", async (req, res) => {
     // Find the user by email
     let user = await User.findOne({ email });
 
+    if (!user) {
+      return res.status(400).json({ message: "Invalid Credentials" });
+    }
+
+    // Compare entered password with hashed password
     const isMatch = await bcrypt.compare(password, user.password);
 
-    if (!isMatch)
+    if (!isMatch) {
       return res.status(400).json({ message: "Invalid Credentials" });
-
+    }
 
     // Create JWT Payload
-    const payload = { user: { id: user._id, role: user.role } };
+    const payload = { id: user._id, role: user.role };
 
     // Sign and return the token along with user data
     jwt.sign(
@@ -77,7 +85,6 @@ router.post("/login", async (req, res) => {
       (err, token) => {
         if (err) throw err;
 
-        // Send the user and token in response
         res.json({
           user: {
             _id: user._id,
@@ -96,7 +103,7 @@ router.post("/login", async (req, res) => {
 });
 
 // @route GET /api/users/profile
-// @desc Get logged-in user's profile (Protected Route)
+// @desc Get logged-in user's profile (Protected)
 // @access Private
 router.get("/profile", protect, async (req, res) => {
   res.json(req.user);

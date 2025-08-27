@@ -1,13 +1,12 @@
-// frontend/src/pages/VideoCallHome.jsx
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserBookings } from "../../redux/slices/bookingSlice";
 import { useNavigate } from "react-router-dom";
 
-const VIdeoCallHome = () => {
+const VideoCallHome = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { bookings, loading, error } = useSelector((state) => state.bookings);
+  const { bookings, loading, error } = useSelector((s) => s.bookings);
 
   useEffect(() => {
     dispatch(fetchUserBookings());
@@ -22,8 +21,7 @@ const VIdeoCallHome = () => {
       <ul>
         {bookings.map((b) => (
           <li key={b._id}>
-            {b.astrologer?.firstName} — {new Date(b.startTime).toLocaleString()}
-            {"  "}
+            {b.astrologer?.firstName} — {new Date(b.startTime).toLocaleString()}{" "}
             <button onClick={() => navigate(`/room/${b._id}`)}>Join</button>
           </li>
         ))}
@@ -32,4 +30,4 @@ const VIdeoCallHome = () => {
   );
 };
 
-export default VIdeoCallHome;
+export default VideoCallHome;

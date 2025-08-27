@@ -6,7 +6,7 @@ const userFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
 
-// Check for an existing guest ID in the localStorage or generate a new One
+// Check for an existing guest ID in the localStorage or generate a new one
 const initialGuestId =
   localStorage.getItem("guestId") || `guest_${new Date().getTime()}`;
 localStorage.setItem("guestId", initialGuestId);
@@ -24,9 +24,13 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userData, { rejectWithValue }) => {
     try {
+      const token = localStorage.getItem("userToken");
+console.log("Token from localStorage (frontend):", token);
+console.log("Authorization Header being sent:", `Bearer ${token}`);
+
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/users/login`,
-        userData
+        userData,
       );
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
       localStorage.setItem("userToken", response.data.token);
@@ -103,5 +107,6 @@ const authSlice = createSlice({
   },
 });
 
+// Export actions and reducer
 export const { logout, generateNewGuestId } = authSlice.actions;
 export default authSlice.reducer;
