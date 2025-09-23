@@ -16,12 +16,6 @@ const Hero = () => {
           <p className="text-sm tracking-tighter md:text-lg mb-6">
             Unlock the secrets of the stars — Guiding you to harmony and insight worldwide.
           </p>
-          {/* <Link
-            to="#"
-            className="bg-white text-gray-950 px-6 py-2 rounded-sm text-lg"
-          >
-            Shop Now
-          </Link> */}
         </div>
       </div>
     </section>

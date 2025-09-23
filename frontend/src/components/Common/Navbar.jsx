@@ -33,12 +33,6 @@ const Navbar = () => {
     <>
     <div className="bg-[#f6eec3]">
       <nav className="container mx-auto flex items-center justify-between py-4 px-6 bg-[#f6eec3]">
-        {/* Left - Logo */}
-        {/* <div>
-          <Link to="/" className="text-2xl font-medium">
-            Harmony Digits
-          </Link>
-        </div> */}
         <div>
           <Link to="/" className="flex items-center gap-2">
             <img
@@ -46,8 +40,7 @@ const Navbar = () => {
               alt="Harmony Digits Logo"
               className="h-10 w-10 rounded-full border-2 border-green-600 shadow-sm"
             />
-            {/* Optional: Show name on md+ screens (comment out if you want only icon) */}
-            {/* <span className="hidden md:inline text-2xl font-medium pl-2">Harmony Digits</span> */}
+            
           </Link>
         </div>
         {/* Center - Navigation Links */}
@@ -125,20 +118,7 @@ const Navbar = () => {
         <div className="p-4">
           <h2 className="text-xl font-semibold mb-4">Menu</h2>
           <nav className="space-y-4">
-            {/* <Link
-              to="/collections/all?gender=Men"
-              onClick={toggleNavDrawer}
-              className="block text-gray-600 hover:text-black"
-            >
-              Men
-            </Link> */}
-            {/* <Link
-              to="/collections/all?gender=Women"
-              onClick={toggleNavDrawer}
-              className="block text-gray-600 hover:text-black"
-            >
-              Women
-            </Link> */}
+            
             <Link
               to="/collections/all?category=yantra"
               onClick={toggleNavDrawer}

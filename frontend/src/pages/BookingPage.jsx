@@ -127,12 +127,6 @@ const BookingPage = () => {
           >
             Book Video Call
           </Link>
-          <Link
-            to="/chat-booking"
-            className="px-8 py-4 w-52 rounded-full bg-yellow-300 text-gray-900 font-semibold text-lg shadow-lg transform transition-all hover:scale-105 hover:bg-yellow-500 text-center"
-          >
-            Book Chat
-          </Link>
         </div>
       </div>
     </div>

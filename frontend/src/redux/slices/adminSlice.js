@@ -103,7 +103,7 @@ const adminSlice = createSlice({
       })
       .addCase(addUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.users.push(action.payload.user); // add a new user to the state
+        state.users.push(action.payload.user); 
       })
       .addCase(addUser.rejected, (state, action) => {
         state.loading = false;

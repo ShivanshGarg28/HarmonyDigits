@@ -6,7 +6,7 @@ const astrologerSchema = new mongoose.Schema(
   {
     role: {
       type: String,
-      enum: ["admin"], // Astrologers are always admins
+      enum: ["admin"], 
       default: "admin",
     },
     firstName: { type: String, required: true, maxLength: 50 },

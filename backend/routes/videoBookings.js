@@ -9,7 +9,6 @@ const { protect } = require('../middleware/authMiddleware');
 
 const GRACE_MIN = parseInt(process.env.ROOM_GRACE_MINUTES || '3', 10);
 
-// ✅ NEW — fetch all bookings for logged-in user
 router.get('/booking', protect, async (req, res) => {
   try {
     const bookings = await Booking.find({
@@ -108,7 +107,7 @@ router.get('/booking/:id', protect, async (req, res) => {
 });
 
 // Get room info
-router.get('/:id/room', protect, async (req, res) => {
+router.get('/booking/:id/room', protect, async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id)
       .populate('user', 'name')
@@ -142,7 +141,11 @@ router.get('/:id/room', protect, async (req, res) => {
           booking.astrologer.lastName || ''
         }`;
 
-    res.json({ roomId: booking.roomId, userName });
+    res.json({
+      roomId: booking.roomId,
+      userName,
+      userId: req.user._id, 
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error' });

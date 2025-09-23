@@ -1,3 +1,4 @@
+// pages/RoomPage.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
@@ -13,26 +14,33 @@ const RoomPage = () => {
       try {
         const res = await fetch(`/api/booking/${bookingId}/room`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
           },
         });
 
         if (!res.ok) {
-          const errData = await res.json();
+          const errData = await res.json().catch(() => ({}));
           alert(errData.error || "Unable to join meeting");
           navigate("/");
           return;
         }
 
-        const { roomId, userName } = await res.json();
+        const { roomId, userName, userId } = await res.json();
+
+        if (!roomId || !userName) {
+          alert("Invalid room details from server");
+          navigate("/");
+          return;
+        }
 
         const appID = 556479662;
         const serverSecret = "dc2a4ca608dbf42d86885b31b7294a5f";
+
         const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
           appID,
           serverSecret,
           roomId,
-          Date.now().toString(),
+          userId || Date.now().toString(), // fallback to timestamp
           userName
         );
 
@@ -48,13 +56,18 @@ const RoomPage = () => {
 
         setLoading(false);
       } catch (err) {
-        console.error(err);
+        console.error("Error initializing meeting:", err);
         alert("Error joining meeting");
         navigate("/");
       }
     };
 
-    initMeeting();
+    if (bookingId) {
+      initMeeting();
+    } else {
+      alert("Invalid booking ID");
+      navigate("/");
+    }
   }, [bookingId, navigate]);
 
   if (loading) return <p className="text-center mt-20">Loading meeting...</p>;

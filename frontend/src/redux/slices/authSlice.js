@@ -35,7 +35,7 @@ console.log("Authorization Header being sent:", `Bearer ${token}`);
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
       localStorage.setItem("userToken", response.data.token);
 
-      return response.data.user; // Return the user object from the response
+      return response.data.user; 
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -54,7 +54,7 @@ export const registerUser = createAsyncThunk(
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
       localStorage.setItem("userToken", response.data.token);
 
-      return response.data.user; // Return the user object from the response
+      return response.data.user; 
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -68,10 +68,10 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null;
-      state.guestId = `guest_${new Date().getTime()}`; // Reset guest ID on logout
+      state.guestId = `guest_${new Date().getTime()}`; 
       localStorage.removeItem("userInfo");
       localStorage.removeItem("userToken");
-      localStorage.setItem("guestId", state.guestId); // Set new guest ID in localStorage
+      localStorage.setItem("guestId", state.guestId); 
     },
     generateNewGuestId: (state) => {
       state.guestId = `guest_${new Date().getTime()}`;

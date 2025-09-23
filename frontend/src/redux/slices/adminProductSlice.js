@@ -34,8 +34,8 @@ export const createProduct = createAsyncThunk(
           },
         }
       );
-      toast.success("✅ Product created successfully!");
-      return response.data.product; // backend returns { success, message, product }
+      toast.success("Product created successfully!");
+      return response.data.product; 
     } catch (error) {
       toast.error(error.response?.data?.message || "❌ Failed to create product");
       return rejectWithValue(error.response?.data || error.message);
@@ -58,7 +58,7 @@ export const updateProduct = createAsyncThunk(
           },
         }
       );
-      toast.success("✅ Product updated successfully!");
+      toast.success("Product updated successfully!");
       return response.data;
     } catch (error) {
       toast.error(error.response?.data?.message || "❌ Failed to update product");
@@ -78,7 +78,7 @@ export const deleteProduct = createAsyncThunk(
       toast.success("🗑 Product deleted successfully!");
       return id;
     } catch (error) {
-      toast.error(error.response?.data?.message || "❌ Failed to delete product");
+      toast.error(error.response?.data?.message || "Failed to delete product");
       return rejectWithValue(error.response?.data || error.message);
     }
   }
