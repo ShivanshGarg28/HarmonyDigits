@@ -16,14 +16,7 @@ const Home = () => {
   const [bestSellerProduct, setBestSellerProduct] = useState(null);
 
   useEffect(() => {
-    // Fetch products for a specific collection
-    dispatch(
-      fetchProductsByFilters({
-        gender: "Women",
-        category: "Bottom Wear",
-        limit: 8,
-      })
-    );
+    
     // Fetch best seller product
     const fetchBestSeller = async () => {
       try {

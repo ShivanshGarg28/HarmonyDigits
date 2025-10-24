@@ -1,11 +1,10 @@
-import { Link } from "react-router-dom";
 import heroImg from "../../assets/cover3.png";
 const Hero = () => {
   return (
     <section className="relative">
       <img
         src={heroImg}
-        alt="Rabbit"
+        alt="hero"
         className="w-full h-[500px] md:h-[600px] lg:h-[750px] object-cover"
       />
       <div className="absolute inset-0 bg-black bg-opacity-5 flex items-center justify-center">
