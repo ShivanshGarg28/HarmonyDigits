@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Helper function to load cart from localStorage
+//load cart from localStorage
 const loadCartFromStorage = () => {
   const storedCart = localStorage.getItem("cart");
   return storedCart ? JSON.parse(storedCart) : { products: [] };
@@ -12,7 +12,7 @@ const saveCartToStorage = (cart) => {
   localStorage.setItem("cart", JSON.stringify(cart));
 };
 
-// Fetch cart for a user or guest
+// Fetch cart for user 
 export const fetchCart = createAsyncThunk(
   "cart/fetchCart",
   async ({ userId, guestId }, { rejectWithValue }) => {
@@ -31,11 +31,11 @@ export const fetchCart = createAsyncThunk(
   }
 );
 
-// Add an item to the cart for a user or guest
+// Add item for user
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
   async (
-    { productId, quantity, size, color, guestId, userId },
+    { productId, quantity, size, guestId, userId },
     { rejectWithValue }
   ) => {
     try {
@@ -45,7 +45,6 @@ export const addToCart = createAsyncThunk(
           productId,
           quantity,
           size,
-          color,
           guestId,
           userId,
         }
@@ -57,11 +56,11 @@ export const addToCart = createAsyncThunk(
   }
 );
 
-// Update the quantity of an item in the cart
+// Update quantity 
 export const updateCartItemQuantity = createAsyncThunk(
   "cart/updateCartItemQuantity",
   async (
-    { productId, quantity, guestId, userId, size, color },
+    { productId, quantity, guestId, userId, size},
     { rejectWithValue }
   ) => {
     try {
@@ -73,7 +72,6 @@ export const updateCartItemQuantity = createAsyncThunk(
           guestId,
           userId,
           size,
-          color,
         }
       );
       return response.data;
@@ -83,15 +81,15 @@ export const updateCartItemQuantity = createAsyncThunk(
   }
 );
 
-// Remove an item from the cart
+// Remove item
 export const removeFromCart = createAsyncThunk(
   "cart/removeFromCart",
-  async ({ productId, guestId, userId, size, color }, { rejectWithValue }) => {
+  async ({ productId, guestId, userId, size }, { rejectWithValue }) => {
     try {
       const response = await axios({
         method: "DELETE",
         url: `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
-        data: { productId, guestId, userId, size, color },
+        data: { productId, guestId, userId, size },
       });
       return response.data;
     } catch (error) {

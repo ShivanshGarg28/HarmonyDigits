@@ -4,61 +4,58 @@ const { protect, admin } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-// @route POST /api/products
-// @desc Create a new Product
-// @access Private/Admin
-router.post("/", protect, admin, async (req, res) => {
-  try {
-    const {
-      name,
-      description,
-      price,
-      discountPrice,
-      countInStock,
-      category,
-      brand,
-      sizes,
-      colors,
-      collections,
-      material,
-      gender,
-      images,
-      isFeatured,
-      isPublished,
-      tags,
-      dimensions,
-      weight,
-      sku,
-    } = req.body;
+//@route POST /api/products/add
+//@desc Create a new product
+//@access Private/Admin
 
+router.post("/add", protect, admin, async (req, res) => {
+  try {
+    const data = req.body;
+
+    
+    const existing = await Product.findOne({ sku: data.sku });
+    if (existing) {
+      return res.status(400).json({ message: "Product with this SKU already exists" });
+    }
+
+    
     const product = new Product({
-      name,
-      description,
-      price,
-      discountPrice,
-      countInStock,
-      category,
-      brand,
-      sizes,
-      colors,
-      collections,
-      material,
-      gender,
-      images,
-      isFeatured,
-      isPublished,
-      tags,
-      dimensions,
-      weight,
-      sku,
-      user: req.user._id, // Reference to the admin user who created it
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      discountPrice: data.discountPrice,
+      countInStock: data.countInStock,
+      sku: data.sku,
+      category: data.category,
+      brand: data.brand,
+      sizes: data.sizes,
+      colors: data.colors,
+      collections: data.collections,
+      material: data.material,
+      gender: data.gender,
+      images: data.images,
+      isFeatured: data.isFeatured || false,
+      isPublished: data.isPublished || false,
+      tags: data.tags,
+      dimensions: data.dimensions,
+      weight: data.weight,
+      user: req.user._id, 
+      metaTitle: data.metaTitle,
+      metaDescription: data.metaDescription,
+      metaKeywords: data.metaKeywords,
     });
 
-    const createdProduct = await product.save();
-    res.status(201).json(createdProduct);
+    const savedProduct = await product.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Product created successfully",
+      product: savedProduct
+    });
+
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Server Error");
+    console.error("Error adding product:", error);
+    res.status(500).json({ message: "Server Error" });
   }
 });
 
@@ -93,7 +90,6 @@ router.put("/:id", protect, admin, async (req, res) => {
     const product = await Product.findById(req.params.id);
 
     if (product) {
-      // Update product fields
       product.name = name || product.name;
       product.description = description || product.description;
       product.price = price || product.price;
@@ -116,7 +112,6 @@ router.put("/:id", protect, admin, async (req, res) => {
       product.weight = weight || product.weight;
       product.sku = sku || product.sku;
 
-      //   Save the updated product
       const updatedProduct = await product.save();
       res.json(updatedProduct);
     } else {

@@ -20,7 +20,7 @@ const OrderConfirmationPage = () => {
 
   const calculateEstimatedDelivery = (createdAt) => {
     const orderDate = new Date(createdAt);
-    orderDate.setDate(orderDate.getDate() + 10); // Add 10 days to the order date
+    orderDate.setDate(orderDate.getDate() + 10); 
     return orderDate.toLocaleDateString();
   };
 
@@ -66,7 +66,7 @@ const OrderConfirmationPage = () => {
                   </p>
                 </div>
                 <div className="ml-auto text-right">
-                  <p className="text-md">${item.price}</p>
+                  <p className="text-md">₹{item.price}</p>
                   <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
                 </div>
               </div>

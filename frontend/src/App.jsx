@@ -17,6 +17,14 @@ import UserManagement from "./components/Admin/UserManagement";
 import ProductManagement from "./components/Admin/ProductManagement";
 import EditProductPage from "./components/Admin/EditProductPage";
 import OrderManagement from "./components/Admin/OrderManagement";
+import AddProduct from "./components/Admin/AddProduct"
+import BookingPage from "./pages/BookingPage"
+import OfflineBooking from "./components/Booking/OfflineBooking";
+import VideoBooking from "./components/Booking/VideoBooking";
+import ChatBooking from "./components/Booking/ChatBooking";
+import VideoCallInfoPage from "./pages/VideoCallIinfoPage";
+import RoomPage from "./pages/RoomPage";
+
 
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -39,6 +47,13 @@ const App = () => {
               path="collections/:collection"
               element={<CollectionPage />}
             />
+            <Route path="astrologer" element={<BookingPage />}></Route>
+            <Route path="videocalling" element={<VideoCallInfoPage />} />
+            <Route path="room/:bookingId" element={<RoomPage />} />
+            <Route path="offline-booking" element={<OfflineBooking />} />
+            <Route path="videoBooking" element={<VideoBooking />} />
+            <Route path="chat-booking" element={<ChatBooking />} />
+
             <Route path="product/:id" element={<ProductDetails />} />
             <Route path="checkout" element={<Checkout />} />
             <Route
@@ -59,6 +74,7 @@ const App = () => {
             <Route index element={<AdminHomePage />} />
             <Route path="users" element={<UserManagement />} />
             <Route path="products" element={<ProductManagement />} />
+            <Route path="addProduct" element={<AddProduct />} />
             <Route path="products/:id/edit" element={<EditProductPage />} />
             <Route path="orders" element={<OrderManagement />} />
           </Route>

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Async Thunk to Fetch Products by Collection and optional Filters
+//Fetch Products by Collection and optional Filters
 export const fetchProductsByFilters = createAsyncThunk(
   "products/fetchByFilters",
   async ({
@@ -39,7 +39,7 @@ export const fetchProductsByFilters = createAsyncThunk(
   }
 );
 
-// Async thunk to fetch a single product by ID
+//fetch a single product by ID
 export const fetchProductDetails = createAsyncThunk(
   "products/fetchProductDetails",
   async (id) => {
@@ -50,7 +50,7 @@ export const fetchProductDetails = createAsyncThunk(
   }
 );
 
-// Async thunk to fetch similar products
+//fetch similar products
 export const updateProduct = createAsyncThunk(
   "products/updateProduct",
   async ({ id, productData }) => {
@@ -67,7 +67,7 @@ export const updateProduct = createAsyncThunk(
   }
 );
 
-// Async thunk to fetch similar products
+//fetch similar products
 export const fetchSimilarProducts = createAsyncThunk(
   "products/fetchSimilarProducts",
   async ({ id }) => {
@@ -82,7 +82,7 @@ const productsSlice = createSlice({
   name: "products",
   initialState: {
     products: [],
-    selectedProduct: null, // Store the details of the single Product
+    selectedProduct: null, 
     similarProducts: [],
     loading: false,
     error: null,

@@ -31,7 +31,7 @@ const UserManagement = () => {
     name: "",
     email: "",
     password: "",
-    role: "customer", // Default role
+    role: "customer", 
   });
 
   const handleChange = (e) => {

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="border-t py-12">
+    <footer className="border-t py-12 bg-gradient-to-b from-[#f6eec3] to-[#97eda8]">
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8 px-4 lg:px-0">
         <div>
           <h3 className="text-lg text-gray-800 mb-4">Newsletter</h3>
@@ -119,14 +119,14 @@ const Footer = () => {
           <p className="text-gray-500">Call Us</p>
           <p>
             <FiPhoneCall className="inline-block mr-2" />
-            0123-456-789
+            0123456789
           </p>
         </div>
       </div>
       {/* Footer Bottom */}
       <div className="container mx-auto mt-12 px-4 lg:px-0 border-t border-gray-200 pt-6">
         <p className="text-gray-500 text-sm tracking-tighter text-center">
-          © 2025, CompileTab. All Rights Reserved.
+          © 2025, Harmony digits. All Rights Reserved.
         </p>
       </div>
     </footer>

@@ -78,8 +78,7 @@ const NewArrivals = () => {
       <div className="container mx-auto text-center mb-10 relative">
         <h2 className="text-3xl font-bold mb-4">Explore New Arrivals</h2>
         <p className="text-lg text-gray-600 mb-8">
-          Discover the latest styles straight off the runway, freshly added to
-          keep your wardrobe on the cutting edge of fashion.
+          Step into harmony with our newest spiritual creations — powerful bracelets and yantras designed to align your destiny and invite abundance.
         </p>
 
         {/* Scroll Buttons */}
@@ -133,7 +132,7 @@ const NewArrivals = () => {
             <div className="absolute bottom-0 left-0 right-0 bg-opacity-50 backdrop-blur-md text-white p-4 rounded-b-lg">
               <Link to={`/product/${product._id}`} className="block">
                 <h4 className="font-medium">{product.name}</h4>
-                <p className="mt-1">${product.price}</p>
+                <p className="mt-1">₹{product.price}</p>
               </Link>
             </div>
           </div>
