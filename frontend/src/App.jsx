@@ -21,7 +21,6 @@ import AddProduct from "./components/Admin/AddProduct"
 import BookingPage from "./pages/BookingPage"
 import OfflineBooking from "./components/Booking/OfflineBooking";
 import VideoBooking from "./components/Booking/VideoBooking";
-import ChatBooking from "./components/Booking/ChatBooking";
 import VideoCallInfoPage from "./pages/VideoCallIinfoPage";
 import RoomPage from "./pages/RoomPage";
 
@@ -52,7 +51,6 @@ const App = () => {
             <Route path="room/:bookingId" element={<RoomPage />} />
             <Route path="offline-booking" element={<OfflineBooking />} />
             <Route path="videoBooking" element={<VideoBooking />} />
-            <Route path="chat-booking" element={<ChatBooking />} />
 
             <Route path="product/:id" element={<ProductDetails />} />
             <Route path="checkout" element={<Checkout />} />
